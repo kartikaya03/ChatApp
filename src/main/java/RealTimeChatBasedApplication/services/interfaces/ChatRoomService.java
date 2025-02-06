@@ -1,13 +1,17 @@
 package RealTimeChatBasedApplication.services.interfaces;
 
-import RealTimeChatBasedApplication.pojo.RoomCredentials;
 
+
+import RealTimeChatBasedApplication.pojo.Message;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.util.List;
+
+
 public interface ChatRoomService {
 
-    ResponseEntity<String> createRoom(String roomId);
-    RoomCredentials joinRoom(String roomId);
+    ResponseEntity<?> createRoom(String roomId);
+    ResponseEntity<?> joinRoom(String roomId);
+    ResponseEntity<List<Message>> getMessage(String roomId,int page, int size);
+
 }

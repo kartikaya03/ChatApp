@@ -1,19 +1,25 @@
-package RealTimeChatBasedApplication.Controller;
+package RealTimeChatBasedApplication.controller;
 
 
 
-import RealTimeChatBasedApplication.pojo.RoomCredentials;
+import RealTimeChatBasedApplication.pojo.Message;
+import RealTimeChatBasedApplication.pojo.Room;
 
 
 import RealTimeChatBasedApplication.services.interfaces.ChatRoomService;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping
+@RequestMapping(value = "/ChatRoom")
+@Slf4j
 public class ApiCalls {
 
-   private ChatRoomService chatRoomService;
+    private ChatRoomService chatRoomService;
 
     public ApiCalls(ChatRoomService chatRoomService) {
         this.chatRoomService = chatRoomService;
@@ -21,14 +27,32 @@ public class ApiCalls {
 
 
     @PostMapping("/Id")
-    public RoomCredentials createRoom(@RequestBody String roomId) {       //controller for create a  room for chatting
-              chatRoomService.createRoom(roomId);
-        return  null;
+    public ResponseEntity<?> createRoom(@RequestBody String roomId) {//controller for create a  room for chatting
+        log.info("Creating room: {}", roomId);
+        return chatRoomService.createRoom(roomId);
+    }
+    @GetMapping("/Id/{roomId}")
+    public ResponseEntity<?> joinRoom(@PathVariable String roomId){
+        log.info("Joining room: {}", roomId);
+        return chatRoomService.joinRoom(roomId);
     }
 
-    @GetMapping
-    public String joinRoom(String roomId) {
-        return null;
+
+      @GetMapping("/{roomId}/message")
+    public ResponseEntity<List<Message>> getMessage(@PathVariable String roomId,
+                                                    @RequestParam(value = "page",defaultValue = "0",required = false) int page,
+                                                    @RequestParam(value = "size",defaultValue = "20",required = false) int size)
+      {
+
+
+           log.info("Getting messages for room: {}", roomId);
+
+          return chatRoomService.getMessage(roomId,page,size);
+
     }
+
+
+
 }
+
 

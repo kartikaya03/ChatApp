@@ -9,12 +9,11 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class message {
+public class Message {
 
     private String sender;
 
-    public message(String sender, String content) {
+    public Message(String sender, String content) {
         this.sender = sender;
         this.content = content;
         this.timestamp = LocalDateTime.now();
