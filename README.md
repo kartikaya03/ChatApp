@@ -45,7 +45,7 @@ The backend of **ChatApp** is a robust and scalable server-side application buil
 ## API Endpoints
 ### Messaging
 -  @MessageMapping("/sendMessage/{roomId}")// /app/sendMessage/roomId
-    @SendTo("/topic/room/{roomId}")//subscribe
+-  @SendTo("/topic/room/{roomId}")//subscribe
 
 ### Chat Rooms
 - **POST** ` @PostMapping("/Id")` - Create a new chat room
